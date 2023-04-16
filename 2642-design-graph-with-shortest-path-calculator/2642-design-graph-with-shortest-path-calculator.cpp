@@ -17,7 +17,8 @@ public:
         priority_queue<pair<long long int,int>,vector<pair<long long int,int>> , greater<pair<long long int,int>>> pq;
         pq.push({0,node1});
         vector<int> ans(100,INT_MAX);
-      if(node1 == node2) return 0;
+        ans[node1] = 0;
+      // if(node1 == node2) return 0;
         while(!pq.empty())
         {
           int n = pq.size();
