@@ -29,7 +29,7 @@ public:
             int mid = (i+j)>>1;
             if(check(mid , anst , k))
             {
-            cout<<mid<<" ";
+            // cout<<mid<<" ";
                 ans = i;
                 i = mid + 1;
             }
