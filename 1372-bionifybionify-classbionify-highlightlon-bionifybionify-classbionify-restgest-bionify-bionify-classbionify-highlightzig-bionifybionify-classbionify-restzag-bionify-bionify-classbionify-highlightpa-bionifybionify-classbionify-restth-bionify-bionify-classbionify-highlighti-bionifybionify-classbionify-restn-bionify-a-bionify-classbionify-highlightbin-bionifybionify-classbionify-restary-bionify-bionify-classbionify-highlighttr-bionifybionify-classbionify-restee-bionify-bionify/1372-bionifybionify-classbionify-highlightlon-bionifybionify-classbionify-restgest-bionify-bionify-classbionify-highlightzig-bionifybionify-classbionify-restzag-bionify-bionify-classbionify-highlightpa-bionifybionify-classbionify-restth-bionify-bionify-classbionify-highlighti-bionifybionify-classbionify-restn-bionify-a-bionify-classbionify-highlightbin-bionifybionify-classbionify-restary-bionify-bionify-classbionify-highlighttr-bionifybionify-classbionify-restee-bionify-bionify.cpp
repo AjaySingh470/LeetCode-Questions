@@ -15,9 +15,9 @@ public:
     int calc(TreeNode* root , bool flg , int height)
     {
         if(root == NULL) {
-            ans = max(height  , ans);
             return 0;
         }
+            ans = max(height  , ans);
         int l = 0 , r = 0;
         if(flg)
         {
@@ -32,6 +32,6 @@ public:
     int longestZigZag(TreeNode* root) {
         int left = calc(root, true , 0);
         int right = calc(root , false , 0);
-        return ans-1;
+        return ans;
     }
 };
