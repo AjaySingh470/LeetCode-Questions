@@ -21,22 +21,29 @@ public:
         return max_val >= len;
         
     }
-    int maxConsecutiveAnswers(string anst, int k) {
-        int i=0 , j = anst.size();
-        int ans = -1;
-        while(i<=j)
-        {
-            int mid = (i+j)>>1;
-            if(check(mid , anst , k))
-            {
-            // cout<<mid<<" ";
-                ans = i;
-                i = mid + 1;
-            }
-            else{
-                j = mid - 1;
-            }
-        }
-        return j;
+    
+    int maxSizedWindowInString(string nums , int k , char ch)
+    {
+        int i = 0, j = 0;
+      int zeroCount = 0;
+        int ans = 0;
+      for(int s = 0;s<nums.size();s++)
+      {
+          if(nums[s] == ch) zeroCount++;
+          while(zeroCount > k)
+          {
+            if(nums[i] ==ch) zeroCount--;
+            i++;
+          }
+        ans = max(ans , s - i + 1);
+      }
+      return ans;
+    }
+    
+    int maxConsecutiveAnswers(string nums, int k) {
+      return max(maxSizedWindowInString(nums,k,'T') , maxSizedWindowInString(nums,k,'F'));
     }
 };
+
+
+
