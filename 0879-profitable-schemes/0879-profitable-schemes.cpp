@@ -1,7 +1,7 @@
 class Solution {
 public:
     
-    int cnt = 0 , mod = 1e9 + 7;
+    int mod = 1e9 + 7;
     int dp[101][101][101];
     int recur(int i,int sm , int people, int minp,vector<int> &group , vector<int> &profit)
     {
@@ -22,9 +22,28 @@ public:
     
     int profitableSchemes(int n, int minProfit, vector<int>& group, vector<int>& profit) {
         
-        memset(dp, -1,sizeof(dp));
+        // memset(dp, 0,sizeof(dp));
         //
-        return recur(0,0,n,minProfit , group , profit);
-
+        // return recur(0,0,n,minProfit , group , profit);
+        for(int count = 0;count<=n;count++)
+        {
+            dp[group.size()][count][minProfit] = 1;
+        }
+        for(int i = group.size() - 1 ; i>=0 ; i--)
+        {
+            for(int cnt = 0 ; cnt <= n;cnt++)
+            {
+                for(int pft = 0 ; pft <= minProfit ;pft++)
+                {
+                    dp[i][cnt][pft] = dp[i+1][cnt][pft];
+                    if( cnt + group[i]<=n)
+                    {
+                        dp[i][cnt][pft] = (dp[i][cnt][pft] + dp[i+1][cnt + group[i]][min(minProfit , pft + profit[i])])% mod;
+                    }
+                }
+            }
+        }
+        return dp[0][0][0];
+            
     }
 };
