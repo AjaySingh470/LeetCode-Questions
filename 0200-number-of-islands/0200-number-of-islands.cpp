@@ -9,12 +9,10 @@ public:
         if( i == n || j == m || i < 0 || j < 0 || grid[i][j] == '0') return;
         // if(vis[i][j] == 1) return ;
         grid[i][j] = '0';
-        for(int k=0;k<4;k++)
-        {
-            int nr = i + dr[k];
-            int nc = j + dc[k];
-            dfs(nr , nc , n , m , grid);
-        }
+         dfs(i-1, j, n, m, grid);
+        dfs(i, j-1, n, m, grid);
+        dfs(i+1, j, n, m, grid);
+        dfs(i, j+1, n, m, grid);
         
     }
     
