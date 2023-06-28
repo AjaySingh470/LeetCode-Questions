@@ -29,13 +29,13 @@ public:
         }
         vector<double> ans(n,0.0000);
         ans[start] = 1.0000;
-        priority_queue<pair<int,double>> pq;
+        queue<pair<int,double>> pq;
         pq.push({start , 1.0000});
         
         while(!pq.empty())
         {
             int n = pq.size();
-            auto it = pq.top();
+            auto it = pq.front();
             pq.pop();
             for(auto i : adj[it.first])
             {
