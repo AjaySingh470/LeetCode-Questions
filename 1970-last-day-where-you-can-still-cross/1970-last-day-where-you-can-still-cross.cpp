@@ -15,7 +15,10 @@ public:
         for(int i=0;i<m;i++)
         {
             if(adj[0][i]!=1)
+            {
             q.push({0,i});
+               adj[0][i] = 1; 
+            }
         }
         int dst = n-1;
         while(!q.empty())
