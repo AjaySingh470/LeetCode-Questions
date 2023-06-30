@@ -21,33 +21,21 @@ public:
     }
     
     double maxProbability(int n, vector<vector<int>>& edges, vector<double>& succProb, int start, int end) {
-        vector<vector<pair<int,double>>> adj(n);
-        for(int i=0;i<edges.size();i++)
-        {
-            adj[edges[i][0]].push_back({edges[i][1],succProb[i]});            
-            adj[edges[i][1]].push_back({edges[i][0],succProb[i]});
-        }
+       
         vector<double> ans(n,0.0000);
         ans[start] = 1.0000;
-        queue<pair<int,double>> pq;
-        pq.push({start , 1.0000});
-        
-        while(!pq.empty())
+        for(int i=0;i<n-1;i++)
         {
-            int n = pq.size();
-            auto it = pq.front();
-            pq.pop();
-            for(auto i : adj[it.first])
+            bool hasChanged = false;
+            for(int j=0;j<edges.size();j++)
             {
-                if(ans[it.first] * i.second > ans[i.first])
-                {
-                    ans[i.first] = ans[it.first]*i.second;
-                    pq.push({i.first,i.second});
-                }
+                int u = edges[j][0] , v = edges[j][1];
+                double prob = succProb[j];
+                if(ans[u] * prob > ans[v]) { ans[v] = ans[u]*prob; hasChanged = true;}
+                if(ans[v] * prob > ans[u]) { ans[u] = ans[v]*prob; hasChanged = true;}
             }
+            if(!hasChanged ) break;
         }
-        
-        
         return ans[end];
         
     }
