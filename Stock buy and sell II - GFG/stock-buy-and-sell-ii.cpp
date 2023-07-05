@@ -50,10 +50,26 @@ class Solution {
     }
     
     
-    int stockBuyAndSell(int n, vector<int> &prices) {
+    int stockBuyAndSell(int n, vector<int> &pr) {
         // code here
-        vector<vector<int>> dp(n,vector<int>(2,-1));
-        return solve(0,true, n , prices,dp);
+        vector<vector<int>> dp(n+1,vector<int>(2,0));
+        // dp[0][1] = pr[0];
+        for(int i=n-1;i>=0;i--)
+        {
+            for(int j=0;j<2;j++)
+            {
+                int take = pr[i] , nottake = 0;
+                if(j==1) take *= -1 ;
+                take += dp[i+1][1-j];
+                nottake = dp[i+1][j];
+                dp[i][j] = max(take , nottake);
+            }
+        }
+        return  dp[0][1];
+        
+        
+        
+        // return solve(0,true, n , prices,dp);
     }
 };
 
