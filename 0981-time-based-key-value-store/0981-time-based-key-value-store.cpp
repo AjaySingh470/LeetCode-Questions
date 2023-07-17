@@ -1,42 +1,69 @@
 class TimeMap {
 public:
-    unordered_map<string, vector<pair<int, string>>> keyTimeMap;
     TimeMap() {
+        
     }
     
+    int search(int val,vector<pair<int,string>> &v)
+    {
+        int l = 0 , r = v.size()-1;
+        int ans = 0;
+        while(l<=r)
+        {
+            int mid = (l+r)>>1;
+            if(v[mid].first<=val)
+            {
+                ans = mid;
+                l = mid + 1;
+            }
+            else
+                r = mid-1;
+        }
+        return ans;
+    }
+    
+    map<string,vector<pair<int,string>>> time;
+    
     void set(string key, string value, int timestamp) {
-        // Push '(timestamp, value)' pair in 'key' bucket.
-        keyTimeMap[key].push_back({ timestamp, value });
+        // key -> value with timestamp;
+        time[key].push_back({timestamp,value});
+        // val[key].push_back(value);
     }
     
     string get(string key, int timestamp) {
-        // If the 'key' does not exist in map we will return empty string.
-        if (keyTimeMap.find(key) == keyTimeMap.end()) {
+         // vector<pair<int,string>> tm = time[key];
+        
+        if(time.find(key) == time.end()) return "";
+        if(timestamp < time[key][0].first)
             return "";
-        }
+        //////////////////
         
-        if (timestamp < keyTimeMap[key][0].first) {
-            return "";
-        }
-        
-        // Using binary search on the array of pairs.
-        int left = 0;
-        int right = keyTimeMap[key].size();
-        
-        while (left < right) {
-            int mid = (left + right) / 2;
-            if (keyTimeMap[key][mid].first <= timestamp) {
-                left = mid + 1;
-            } else {
-                right = mid;
+        int l = 0 , r = time[key].size();
+        int val = timestamp;
+        int ns = 0;
+        while(l<r)
+        {
+            int mid = (l+r)>>1;
+            if(time[key][mid].first<=val)
+            {
+               
+                l = mid + 1;
             }
+            else
+                r = mid;
         }
+        /////////////////
+        int it = r;
+        if(it == 0 ) return "";
         
-        // If iterator points to first element it means, no time <= timestamp exists.
-        if (right == 0) {
-            return "";
-        }
-                
-        return keyTimeMap[key][right - 1].second;
+        string ans = time[key][it-1].second;
+        return ans;
     }
 };
+
+/* 
+ * Your TimeMap object will be instantiated and called as such:
+ * TimeMap* obj = new TimeMap();
+ * obj->set(key,value,timestamp);
+ * string param_2 = obj->get(key,timestamp);
+ */
