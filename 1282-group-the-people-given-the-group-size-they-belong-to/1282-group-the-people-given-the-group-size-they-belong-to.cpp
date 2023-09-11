@@ -10,21 +10,15 @@ public:
         }
         for(auto it:m)
         {
-            if(it.first == it.second.size())
+            int sz = it.first ;
+            vector<int> tp = it.second;
+            vector<int> tmp;
+            for(int i=0;i<tp.size();i++)
             {
-                ans.push_back(it.second);
+                if(i%sz == 0) {if(tmp.size())ans.push_back(tmp);tmp = vector<int>();}
+                tmp.push_back(tp[i]);
             }
-            else
-            {
-                while(it.second.size()>0)
-                {    
-                    vector<int> samp;
-                    samp.insert(samp.begin(),it.second.begin(), it.second.begin()+it.first);
-                    it.second.erase(it.second.begin(),it.second.begin()+it.first);
-                    ans.push_back(samp);
-                }    
-            }
-                
+                if(tmp.size())ans.push_back(tmp);
         }
         return ans;
         
