@@ -4,9 +4,15 @@ public:
     
     const int mod = 1e9 + 7;
   vector<vector<long long>> floydWarshall(vector<vector<long long>>& graph, int numNodes) {
-        vector<vector<long long>> distance = graph;
+        vector<vector<long long>> distance(numNodes, vector<long long>(numNodes, INF));
 
-       
+        for (int i = 0; i < numNodes; ++i) {
+            for (int j = 0; j < numNodes; ++j) {
+                
+                    distance[i][j] = graph[i][j];
+                
+            }
+        }
 
         for (int k = 0; k < numNodes; ++k) {
             for (int i = 0; i < numNodes; ++i) {
