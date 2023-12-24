@@ -24,12 +24,7 @@ public:
                 }
             }
         }
-        for(int i=0;i<numNodes;i++)
-        {
-            for(int j=0;j<numNodes;j++)
-                if(distance[i][j] == INF)
-                distance[i][j] = -1;
-        }
+    
         return distance;
     }
     long long minimumCost(string source, string target, vector<char>& original, vector<char>& changed, vector<int>& cost) {
@@ -45,7 +40,7 @@ public:
             int a = source[i] - 'a';
             int b = target[i] - 'a';
             if(a != b) {
-                if(costs[a][b] == -1) return -1;
+                if(costs[a][b] == INF) return -1;
                 costp += costs[a][b];
             }
         }
