@@ -18,10 +18,9 @@ public:
     {
         if(i == arr.size())
         {
-            if(hasunique(s))
-            {
+        
                 ans = max(ans , (int)s.size());
-            }
+            
             return;
         }
         // nottake
